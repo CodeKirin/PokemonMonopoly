@@ -5,7 +5,7 @@
 	<link href="main.css" rel="stylesheet" />
 	<script src="pixi.min.js"></script>
 </head>
-<body>    
+<body>
 	<script>
 	function Tile(imageUrl) {
 		this.imageUrl = imageUrl;
@@ -20,7 +20,6 @@
 			this.sprite.position.x = x || 0;
 			this.sprite.position.y = y || 0;
 		}
-	
 	}	
 	// create a renderer instance
 	var renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight);
@@ -32,40 +31,44 @@
 	var board = new PIXI.Container();
 	
 	// create a texture from an image path
-	var tile1 = PIXI.Texture.fromImage("tile1.png");
-	var tile2 = PIXI.Texture.fromImage("tile2.png");
-	var tile3 = PIXI.Texture.fromImage("tile3.png");
-
+	var tile1Onix = PIXI.Texture.fromImage("images/onix.png");
+	var tile2Voltorb = PIXI.Texture.fromImage("images/voltorb.png");
+	var tile3Jail = PIXI.Texture.fromImage("images.jail.png");
 	
 	var corner = new PIXI.Sprite(tile3);
 	corner.position.x = 0;
 	corner.position.y = 0;
 	board.addChild(corner);
 	
-	
 	var x = 254;
 	// Setup the board
 	for ( var i = 0; i < 10 ; i ++ ) {
-		var tile = new Tile("tile1.png")
-
+		var tile = new Tile("images/onix.png")
+		var bg = new PIXI.Sprite(tile1Onix);
+		
 		tile.setPosition(x, 0);
 		tile.addToContainer(board); 
+		
+		bg.position.x = x;
+		bg.position.y = 1000;
 		x += 153;
+		board.addChild(bg);
+
 	}
-	
+	/*
 	x = 254;
 	for ( var i = 0; i < 10 ; i ++ ) {
-		var bg = new PIXI.Sprite(tile1);
+		var bg = new PIXI.Sprite(tile1Onix);
 		
 		bg.position.x = x;
 		bg.position.y = 1000;
 		x += 153;
 		board.addChild(bg);
 	}
-	
+	*/
 	var y = 255;
 	for ( var i = 0; i < 8 ; i ++ ) {
-		var bg = new PIXI.Sprite(tile2);
+		var bg = new PIXI.Sprite(tile2Voltorb);
 		
 		bg.position.x = 0;
 		bg.position.y = y;
@@ -74,6 +77,8 @@
 	}
 
 	stage.addChild(board);
+	renderer.render(stage);
+	/*
 	// start animating
 	animate();
 	function animate() {
@@ -82,6 +87,7 @@
 		// render the container
 		renderer.render(stage);
 	}
+	*/
 	</script>
 </body>
 </html>

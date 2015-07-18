@@ -7,9 +7,7 @@
 </head>
 <body>
 	<script>
-	function Tile(imageUrl) {
-		this.imageUrl = imageUrl;
-		this.texture = PIXI.Texture.fromImage(this.imageUrl);
+	function Tile(texture) {		
 		this.sprite = new PIXI.Sprite(this.texture);
 	
 		this.addToContainer = function(container) {
@@ -30,12 +28,22 @@
 	var stage = new PIXI.Container();	
 	var board = new PIXI.Container();
 	
-	// create a texture from an image path
-	var tile1Onix = PIXI.Texture.fromImage("images/onix.png");
-	var tile2Voltorb = PIXI.Texture.fromImage("images/voltorb.png");
-	var tile3Jail = PIXI.Texture.fromImage("images.jail.png");
+	// Bottom Tiles
+	var tile3Onix = PIXI.Texture.fromImage("images/onix.png");
+	var tile4Gary = PIXI.Texture.fromImage("images/gary.png");
 	
-	var corner = new PIXI.Sprite(tile3);
+	var tile6Staryu = PIXI.Texture.fromImage("images/staryu.png");
+	var tile7Oak = PIXI.Texture.fromImage("images/oak.png");	
+	var tile8Starmie = PIXI.Texture.fromImage("images/starmie.png");		
+	var tile9Horsea = PIXI.Texture.fromImage("images/horsea.png");
+	var bottomTiles = [tile3Onix, tile3Onix, tile3Onix, tile3Onix, tile4Gary, tile6Staryu, tile7Oak, tile8Starmie, tile9Horsea];
+	
+	// Left Tiles	
+	var tile2Voltorb = PIXI.Texture.fromImage("images/voltorb.png");	
+	
+	// Corner Tiles
+	var tile3Jail = PIXI.Texture.fromImage("images/jail.png");	
+	var corner = new PIXI.Sprite(tile3Jail);
 	corner.position.x = 0;
 	corner.position.y = 0;
 	board.addChild(corner);
@@ -43,8 +51,7 @@
 	var x = 254;
 	// Setup the board
 	for ( var i = 0; i < 10 ; i ++ ) {
-		var tile = new Tile("images/onix.png")
-		var bg = new PIXI.Sprite(tile1Onix);
+		var tile = new Tile(bottomTiles[i]);
 		
 		tile.setPosition(x, 0);
 		tile.addToContainer(board); 
@@ -53,19 +60,8 @@
 		bg.position.y = 1000;
 		x += 153;
 		board.addChild(bg);
+	}
 
-	}
-	/*
-	x = 254;
-	for ( var i = 0; i < 10 ; i ++ ) {
-		var bg = new PIXI.Sprite(tile1Onix);
-		
-		bg.position.x = x;
-		bg.position.y = 1000;
-		x += 153;
-		board.addChild(bg);
-	}
-	*/
 	var y = 255;
 	for ( var i = 0; i < 8 ; i ++ ) {
 		var bg = new PIXI.Sprite(tile2Voltorb);
@@ -77,17 +73,14 @@
 	}
 
 	stage.addChild(board);
-	renderer.render(stage);
-	/*
+	
 	// start animating
 	animate();
 	function animate() {
 		requestAnimationFrame(animate);
-
 		// render the container
 		renderer.render(stage);
 	}
-	*/
 	</script>
 </body>
 </html>

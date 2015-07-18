@@ -2,43 +2,86 @@
 <html>
 <head>
 	<title>Pokemon Monopoly</title>
-	<link href="main.css" rel="stylesheet">
-	<script src="pixi.js"></script>
+	<link href="main.css" rel="stylesheet" />
+	<script src="pixi.min.js"></script>
 </head>
 <body>    
 	<script>
-		
+	function Tile(imageUrl) {
+		this.imageUrl = imageUrl;
+		this.texture = PIXI.Texture.fromImage(this.imageUrl);
+		this.sprite = new PIXI.Sprite(this.texture);
+	
+		this.addToContainer = function(container) {
+			container.addChild(this.sprite);
+		}
+	
+		this.setPosition = function (x, y) {
+			this.sprite.position.x = x || 0;
+			this.sprite.position.y = y || 0;
+		}
+	
+	}	
 	// create a renderer instance
-	var renderer = PIXI.autoDetectRenderer(400, 300);
+	var renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight);
 	// add the renderer view element to the DOM
 	document.body.appendChild(renderer.view);	
-	// Setting up the renderer
-	renderer.resize(window.innerWidth, window.innerHeight);
 	
-	// create an new instance of a pixi stage
-	var stage = new PIXI.Stage(0xFFFFFF, true);	
-	var container = new PIXI.DisplayObjectContainer();
-	stage.addChild(container);
+	// create an new instance of a pixi stage	
+	var stage = new PIXI.Container();	
+	var board = new PIXI.Container();
 	
-	// Background image
-	var bg = PIXI.Sprite.fromImage("board.jpg");
-	container.addChild(bg);
-	var pikachu = PIXI.Sprite.fromImage("pikachu.jpg").scale;
-	container.addChild(pikachu);
-	
-    renderer.render(stage);
-	
-	/*
-	requestAnimFrame( animate );
-	
-	function animate() {	
-	    requestAnimFrame( animate );
-		
-	    // render the stage   
-	    renderer.render(stage);
-	}
-	*/
-	</script>
+	// create a texture from an image path
+	var tile1 = PIXI.Texture.fromImage("tile1.png");
+	var tile2 = PIXI.Texture.fromImage("tile2.png");
+	var tile3 = PIXI.Texture.fromImage("tile3.png");
 
-	</body>
+	
+	var corner = new PIXI.Sprite(tile3);
+	corner.position.x = 0;
+	corner.position.y = 0;
+	board.addChild(corner);
+	
+	
+	var x = 254;
+	// Setup the board
+	for ( var i = 0; i < 10 ; i ++ ) {
+		var tile = new Tile("tile1.png")
+
+		tile.setPosition(x, 0);
+		tile.addToContainer(board); 
+		x += 153;
+	}
+	
+	x = 254;
+	for ( var i = 0; i < 10 ; i ++ ) {
+		var bg = new PIXI.Sprite(tile1);
+		
+		bg.position.x = x;
+		bg.position.y = 1000;
+		x += 153;
+		board.addChild(bg);
+	}
+	
+	var y = 255;
+	for ( var i = 0; i < 8 ; i ++ ) {
+		var bg = new PIXI.Sprite(tile2);
+		
+		bg.position.x = 0;
+		bg.position.y = y;
+		y += 152;
+		board.addChild(bg);
+	}
+
+	stage.addChild(board);
+	// start animating
+	animate();
+	function animate() {
+		requestAnimationFrame(animate);
+
+		// render the container
+		renderer.render(stage);
+	}
+	</script>
+</body>
 </html>

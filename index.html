@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Pokemon Monopoly</title>
+	<link href="main.css" rel="stylesheet">
+	<script src="pixi.js"></script>
+</head>
+<body>    
+	<script>
+		
+	// create a renderer instance
+	var renderer = PIXI.autoDetectRenderer(400, 300);
+	// add the renderer view element to the DOM
+	document.body.appendChild(renderer.view);	
+	// Setting up the renderer
+	renderer.resize(window.innerWidth, window.innerHeight);
+	
+	// create an new instance of a pixi stage
+	var stage = new PIXI.Stage(0xFFFFFF, true);	
+	var container = new PIXI.DisplayObjectContainer();
+	stage.addChild(container);
+	
+	// Background image
+	var bg = PIXI.Sprite.fromImage("board.jpg");
+	container.addChild(bg);
+	var pikachu = PIXI.Sprite.fromImage("pikachu.jpg").scale;
+	container.addChild(pikachu);
+	
+    renderer.render(stage);
+	
+	/*
+	requestAnimFrame( animate );
+	
+	function animate() {	
+	    requestAnimFrame( animate );
+		
+	    // render the stage   
+	    renderer.render(stage);
+	}
+	*/
+	</script>
+
+	</body>
+</html>

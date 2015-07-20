@@ -1,10 +1,10 @@
 function game()
-{
-    // Dice roller
+{		
+	// Dice roller
     var dice = D6;
     dice.setBaseUrl("diceRoller/");
     dice.dice(1, attack);
-
+	
     /******************************************* Functions *******************************************/
     // Setting hidden result label
     function attack(result) {
@@ -20,7 +20,7 @@ function game()
     /****************************************** Display ***********************************************/
     // Width and height of window for the client
     var windowWidth = window.innerWidth;
-    var windowHeight = window.innerHeight;
+    var windowHeight = 1080;//window.innerHeight;
       // Display width and height
     console.log(windowWidth);
     console.log(windowHeight);
@@ -30,7 +30,6 @@ function game()
     // Containers
     var stage = new PIXI.Container();
     var gameBoard = new Board(stage, windowWidth, windowHeight);
-
 
     // create an array of textures from an image path
     var frames = [];
@@ -60,5 +59,5 @@ function game()
 	    // render the container
 		renderer.render(stage);
 		TWEEN.update(time);
-    }
+    }	
 }

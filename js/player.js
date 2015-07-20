@@ -20,7 +20,6 @@ Player.prototype.addToStage = function (stage) {
   stage.addChild(this.display);
 }
 
-
 // Rectangle - subclass
 function PlayerFromMovie(movie) {
   Player.call(this, movie); // call super constructor.

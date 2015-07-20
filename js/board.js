@@ -5,8 +5,6 @@ function Board(stage, windowWidth, windowHeight) {
   // All board tiles
   this.allBoardTiles = [];
 
-
-
   /***************************************** Board Setup *****************************************/
                                              /* Tiles */
   // Corner tiles
@@ -14,16 +12,6 @@ function Board(stage, windowWidth, windowHeight) {
   var corner2Jail = PIXI.Texture.fromImage("images/jail.png");
   var corner3Parking = PIXI.Texture.fromImage("images/freeparking.png");
   var corner4GoJail = PIXI.Texture.fromImage("images/gotojail.png");
-
-  var corner2 = new PIXI.Sprite(corner2Jail);
-  corner2.position.x = 125;
-  corner2.position.y = 1000;
-  this.board.addChild(corner2);
-
-  var corner3 = new PIXI.Sprite(corner3Parking);
-  corner3.position.x = 125;
-  corner3.position.y = 0;
-  this.board.addChild(corner3);
 
   // Bottom tiles
   var tile1Geodude = PIXI.Texture.fromImage("images/geodude.png");
@@ -35,8 +23,8 @@ function Board(stage, windowWidth, windowHeight) {
   var tile7OakBot = PIXI.Texture.fromImage("images/oak(bot).png");
   var tile8Starmie = PIXI.Texture.fromImage("images/starmie.png");
   var tile9Horsea = PIXI.Texture.fromImage("images/horsea.png");
-  var bottomTiles = [corner1Start, tile1Geodude, tile2AshBot, tile3Onix, tile4Gary, tile5Pokeball,
-  tile6Staryu, tile7OakBot, tile8Starmie, tile9Horsea];
+  var bottomTiles = [corner1Start, tile1Geodude, tile2AshBot, tile3Onix, tile4Gary,
+  tile5Pokeball, tile6Staryu, tile7OakBot, tile8Starmie, tile9Horsea];
 
   // Left tiles
   var tile1Voltorb = PIXI.Texture.fromImage("images/voltorb.png");
@@ -48,8 +36,8 @@ function Board(stage, windowWidth, windowHeight) {
   var tile7AshLeft = PIXI.Texture.fromImage("images/ash(left).png");
   var tile8Tangela = PIXI.Texture.fromImage("images/tangela.png");
   var tile9Vileplume = PIXI.Texture.fromImage("images/vileplume.png");
-  var leftTiles = [tile1Voltorb, tile2Zapdos, tile3Electabuzz, tile4Raichu, tile5Greatball, 
-  tile6Victreebel, tile7AshLeft, tile8Tangela, tile9Vileplume];
+  var leftTiles = [corner2Jail, tile1Voltorb, tile2Zapdos, tile3Electabuzz, tile4Raichu, 
+  tile5Greatball, tile6Victreebel, tile7AshLeft, tile8Tangela, tile9Vileplume];
 
   // Top tiles
   var tile1Kadabra = PIXI.Texture.fromImage("images/kadabra.png");
@@ -61,7 +49,7 @@ function Board(stage, windowWidth, windowHeight) {
   var tile7Muk = PIXI.Texture.fromImage("images/muk.png");
   var tile8Articuno = PIXI.Texture.fromImage("images/articuno.png");
   var tile9Weezing = PIXI.Texture.fromImage("images/weezing.png");
-  var topTiles = [tile1Kadabra, tile2OakTop, tile3MrMime, tile4Venomoth, tile5Ultraball,
+  var topTiles = [tile1Kadabra, tile2OakTop, tile3MrMime, tile4Venomoth, tile5Ultraball, 
   tile6Koffing, tile7Muk, tile8Articuno, tile9Weezing, corner4GoJail];
 
   // Right tiles
@@ -74,15 +62,12 @@ function Board(stage, windowWidth, windowHeight) {
   var tile7Nidoqueen = PIXI.Texture.fromImage("images/nidoqueen.png");
   var tile8TeamRocket = PIXI.Texture.fromImage("images/teamrocket.png");
   var tile9Nidoking = PIXI.Texture.fromImage("images/nidoking.png");
-  var rightTiles = [tile1Growlithe, tile2Ponyta, tile3AshRight, tile4Rapidash, tile5Masterball,
+  var rightTiles = [tile1Growlithe, tile2Ponyta, tile3AshRight, tile4Rapidash, tile5Masterball, 
   tile6OakRight, tile7Nidoqueen, tile8TeamRocket, tile9Nidoking];
 
-
                         /* Sides */
-  //var x = windowWidth - 2020;
-  //var x = windowWidth - 1900;
   var x = windowWidth - 370;
-  var y = windowHeight - 324;
+  var y = windowHeight - 227;
 
   // Bottom
   for (var i = 0; i < 10; i++) {
@@ -90,54 +75,54 @@ function Board(stage, windowWidth, windowHeight) {
     tile.setPosition(x, y);
     tile.addToContainer(this.board);
 
-    x -= 153;
+    x -= 80;
     this.allBoardTiles.push(tile);
   }
 
-  x -= 100;
-  y += 100;
+  x -= 55;
   // Left
-  for ( var i = 0; i < 8; i++ ) {
-      var tile = new Tile(leftTiles[i]);
+  for ( var i = 0; i < 10; i++ ) {
+    var tile = new Tile(leftTiles[i]);
     tile.setPosition(x, y);
     tile.addToContainer(this.board);
 
-    y -= 152;
+    y -= 80;
     this.allBoardTiles.push(tile);
   }
 
+  y = 0;
+  var corner3Tile = new Tile(corner3Parking);
+  corner3Tile.setPosition(x, y);
+  corner3Tile.addToContainer(this.board);
+  this.allBoardTiles.push(corner3Tile);
+  
   // Top
-  x += 253;
-  y = 40;
+  x += 134;
   for (var i = 0; i < 10; i++) {
     var tile = new Tile(topTiles[i]);
     tile.setPosition(x, y);
     tile.addToContainer(this.board);
 
-    x += 153;
+    x += 80;
     this.allBoardTiles.push(tile);
   }
 
   // Right
-  x -= 100;
-  for ( var i = 0; i < 8; i++ ) {
+  x -= 81;
+  y = 134;
+  for ( var i = 0; i < 9; i++ ) {
       var tile = new Tile(rightTiles[i]);
 
     tile.setPosition(x, y);
     tile.addToContainer(this.board);
 
-    y += 152;
+    y += 80;
     this.allBoardTiles.push(tile);
   }
-
 
   stage.addChild(this.board);
 }
 
-
-
-
 Board.prototype.getAllBoardTiles = function () {
   return this.allBoardTiles;
-
 }

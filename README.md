@@ -1,2 +1,2 @@
 # Pokemon Monopoly
-Testing random shenanigans
+Pokemon monopoly + rich components project

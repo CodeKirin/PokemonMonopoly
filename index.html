@@ -3,174 +3,45 @@
 <head>
 	<title>Pokemon Monopoly</title>
 	<link href="main.css" rel="stylesheet" />
+	<script type="text/javascript" src="bower_components/tweenjs/build/tween.min.js"></script>
 	<script type="text/javascript" src="pixi.min.js"></script>
 	<script type="text/javascript" src="diceRoller/d6.js"></script>
+	<script type="text/javascript" src="js/tile.js"></script>
+	<script type="text/javascript" src="js/player.js"></script>
+	<script type="text/javascript" src="js/board.js"></script>
+
+	<script type="text/javascript" src="js/game.js"></script>
+
+
+
 </head>
 <body>
-	<script type="text/javascript">
-	
-	// Dice roller
-	var dice = D6;		
-	dice.setBaseUrl("diceRoller/");
-	dice.dice(1, attack);
-	
-	/******************************************* Functions *******************************************/
-	// Setting hidden result label
-	function attack(result) {		
-		document.getElementById("diceResult").Value = result;
-		// Displaying the result of the input for testing
-		console.log(document.getElementById("diceResult").Value);
-	}
-	// Creating an object for each tile
-	function Tile(texture) {		
-		this.sprite = new PIXI.Sprite(texture);
-	
-		this.addToContainer = function(container) {
-			container.addChild(this.sprite);
-		}
-	
-		this.setPosition = function (x, y) {
-			this.sprite.position.x = x || 0;
-			this.sprite.position.y = y || 0;
-		}
-	}	
-	
-	/****************************************** Display ***********************************************/
-	// Width and height of window for the client
-	var windowWidth = window.innerWidth;
-	var windowHeight = window.innerHeight;
-    // Display width and height		
-	console.log(windowWidth);
-	console.log(windowHeight);
-	// Renderer
-	var renderer = PIXI.autoDetectRenderer(windowWidth, windowHeight);
-	document.body.appendChild(renderer.view);		
-	// Containers
-	var stage = new PIXI.Container();	
-	var board = new PIXI.Container();
-		
-	/***************************************** Board Setup *****************************************/
-	                                           /* Tiles */
-	// Corner tiles
-	var corner1Start = PIXI.Texture.fromImage("images/jail.png");
-	var corner2Jail = PIXI.Texture.fromImage("images/jail.png");
-	var corner3Parking = PIXI.Texture.fromImage("images/jail.png");
-	var corner4GoJail = PIXI.Texture.fromImage("images/jail.png");
-			
-	var corner2 = new PIXI.Sprite(corner2Jail);
-	corner2.position.x = 125;
-	corner2.position.y = 1000;
-	board.addChild(corner2);
-	
-	var corner3 = new PIXI.Sprite(corner3Parking);
-	corner3.position.x = 125;
-	corner3.position.y = 0;
-	board.addChild(corner3);
-	
-	// Bottom tiles
-	
-	
-	var tile3Onix = PIXI.Texture.fromImage("images/onix.png");
-	var tile4Gary = PIXI.Texture.fromImage("images/gary.png");
-	
-	var tile6Staryu = PIXI.Texture.fromImage("images/staryu.png");
-	var tile7Oak = PIXI.Texture.fromImage("images/oak.png");	
-	var tile8Starmie = PIXI.Texture.fromImage("images/starmie.png");		
-	var tile9Horsea = PIXI.Texture.fromImage("images/horsea.png");	
-	var bottomTiles = [corner1Start, tile3Onix, tile3Onix, tile3Onix, tile3Onix, tile4Gary,
-	tile6Staryu, tile7Oak, tile8Starmie, tile9Horsea];
-	
-	// Left tiles	
-	var tile2Voltorb = PIXI.Texture.fromImage("images/voltorb.png");
-	var leftTiles = [tile2Voltorb, tile2Voltorb, tile2Voltorb, tile2Voltorb, tile2Voltorb, tile2Voltorb,
-	tile2Voltorb, tile2Voltorb, tile2Voltorb];	
-	
-	// Top tiles
-	var topTiles = [tile3Onix, tile3Onix, tile3Onix, tile3Onix, tile4Gary,
-	tile6Staryu, tile7Oak, tile8Starmie, tile9Horsea, corner4GoJail];
-	
-	// Right tiles
-	var rightTiles = [tile2Voltorb, tile2Voltorb, tile2Voltorb, tile2Voltorb, tile2Voltorb, tile2Voltorb,
-	tile2Voltorb, tile2Voltorb, tile2Voltorb];	
-	
-	// All board tiles
-	var allBoardTiles = [];
-	
-												/* Sides */
-	//var x = windowWidth - 2020;
-	//var x = windowWidth - 1900;
-	var x = windowWidth - 370;
-	var y = windowHeight - 324;
-	
-	// Bottom
-	for (var i = 0; i < 10; i++) {
-		var tile = new Tile(bottomTiles[i]);	
-		tile.setPosition(x, y);
-		tile.addToContainer(board);
-		
-		x -= 153;
-		allBoardTiles.push(tile);
-		board.addChild(tile.sprite);
-	}
-	
-	x -= 100;
-	y += 100;
-	// Left
-	for ( var i = 0; i < 8; i++ ) {
-	    var tile = new Tile(leftTiles[i]);				
-		tile.setPosition(x, y);
-		tile.addToContainer(board); 
-		
-		y -= 152;
-		allBoardTiles.push(tile);
-		board.addChild(tile.sprite);
-	}
-	
-	// Top
-	x += 253;
-	y = 40;
-	for (var i = 0; i < 10; i++) {
-		var tile = new Tile(topTiles[i]);
-		tile.setPosition(x, y);
-		tile.addToContainer(board);
-
-		x += 153;
-		allBoardTiles.push(tile);
-		board.addChild(tile.sprite);
-	}
-		
-	// Right	
-	x -= 100;
-	for ( var i = 0; i < 8; i++ ) {
-	    var tile = new Tile(rightTiles[i]);		
-		
-		tile.setPosition(x, y);
-		tile.addToContainer(board); 
-		
-		y += 152;
-		allBoardTiles.push(tile);
-		board.addChild(tile.sprite);
-	}
-	
-													/* Pieces */
-    var piece1Pikachu = PIXI.Texture.fromImage("images/pikachu.jpg");
-	var tile = new Tile(piece1Pikachu);
-	
-	
-	
-	stage.addChild(board);
-	
-	// start animating
-	animate();
-	function animate() {
-		requestAnimationFrame(animate);
-		// render the container
-		renderer.render(stage);
-	}
-	
-	</script>
-	
-	
 	<input type="hidden" value="" id="diceResult">
+
+	<script type="text/javascript">
+
+
+	PIXI.loader
+	    .add(
+				[
+'images/pik.json',
+"images/gary.png",
+"images/staryu.png",
+"images/oak.png",
+"images/starmie.png",
+"images/horsea.png",
+"images/voltorb.png",
+"images/jail.png",
+"images/onix.png"
+				])
+	    .load(game);
+
+
+
+
+
+	</script>
+
+
 </body>
 </html>

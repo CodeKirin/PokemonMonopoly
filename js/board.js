@@ -36,7 +36,7 @@ function Board(stage, windowWidth, windowHeight) {
   var tile7AshLeft = PIXI.Texture.fromImage("images/ash(left).png");
   var tile8Tangela = PIXI.Texture.fromImage("images/tangela.png");
   var tile9Vileplume = PIXI.Texture.fromImage("images/vileplume.png");
-  var leftTiles = [corner2Jail, tile1Voltorb, tile2Zapdos, tile3Electabuzz, tile4Raichu, 
+  var leftTiles = [corner2Jail, tile1Voltorb, tile2Zapdos, tile3Electabuzz, tile4Raichu,
   tile5Greatball, tile6Victreebel, tile7AshLeft, tile8Tangela, tile9Vileplume];
 
   // Top tiles
@@ -49,7 +49,7 @@ function Board(stage, windowWidth, windowHeight) {
   var tile7Muk = PIXI.Texture.fromImage("images/muk.png");
   var tile8Articuno = PIXI.Texture.fromImage("images/articuno.png");
   var tile9Weezing = PIXI.Texture.fromImage("images/weezing.png");
-  var topTiles = [tile1Kadabra, tile2OakTop, tile3MrMime, tile4Venomoth, tile5Ultraball, 
+  var topTiles = [tile1Kadabra, tile2OakTop, tile3MrMime, tile4Venomoth, tile5Ultraball,
   tile6Koffing, tile7Muk, tile8Articuno, tile9Weezing, corner4GoJail];
 
   // Right tiles
@@ -62,7 +62,7 @@ function Board(stage, windowWidth, windowHeight) {
   var tile7Nidoqueen = PIXI.Texture.fromImage("images/nidoqueen.png");
   var tile8TeamRocket = PIXI.Texture.fromImage("images/teamrocket.png");
   var tile9Nidoking = PIXI.Texture.fromImage("images/nidoking.png");
-  var rightTiles = [tile1Growlithe, tile2Ponyta, tile3AshRight, tile4Rapidash, tile5Masterball, 
+  var rightTiles = [tile1Growlithe, tile2Ponyta, tile3AshRight, tile4Rapidash, tile5Masterball,
   tile6OakRight, tile7Nidoqueen, tile8TeamRocket, tile9Nidoking];
 
                         /* Sides */
@@ -95,7 +95,7 @@ function Board(stage, windowWidth, windowHeight) {
   corner3Tile.setPosition(x, y);
   corner3Tile.addToContainer(this.board);
   this.allBoardTiles.push(corner3Tile);
-  
+
   // Top
   x += 134;
   for (var i = 0; i < 10; i++) {
@@ -111,7 +111,7 @@ function Board(stage, windowWidth, windowHeight) {
   x -= 81;
   y = 134;
   for ( var i = 0; i < 9; i++ ) {
-      var tile = new Tile(rightTiles[i]);
+    var tile = new Tile(rightTiles[i]);
 
     tile.setPosition(x, y);
     tile.addToContainer(this.board);

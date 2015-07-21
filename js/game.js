@@ -1,21 +1,6 @@
 function game()
-{		
-	// Dice roller
-    var dice = D6;
-    dice.setBaseUrl("diceRoller/");
-    dice.dice(1, attack);
-	
-    /******************************************* Functions *******************************************/
-    // Setting hidden result label
-    function attack(result) {
-      var allBoardTiles = gameBoard.getAllBoardTiles();
+{
 
-      // Displaying the result of the input for testing
-         var currentIndex = allBoardTiles.indexOf(player.currentTile);
-         var newIndex = currentIndex == -1  ? newIndex : currentIndex + result;
-         newIndex = newIndex >= allBoardTiles.length - 1 ? newIndex - allBoardTiles.length + 1  : newIndex;
-        player.moveTo(allBoardTiles[newIndex]);
-    }
 
     /****************************************** Display ***********************************************/
     // Width and height of window for the client
@@ -26,7 +11,8 @@ function game()
     console.log(windowHeight);
     // Renderer
     var renderer = PIXI.autoDetectRenderer(windowWidth, windowHeight);
-    document.body.appendChild(renderer.view);
+    var container = document.getElementById('game-container');
+    container.appendChild(renderer.view);
     // Containers
     var stage = new PIXI.Container();
     var gameBoard = new Board(stage, windowWidth, windowHeight);
@@ -52,12 +38,12 @@ function game()
 	player.addToStage(stage);
 	player.moveTo(gameBoard.getAllBoardTiles()[0]);
 
-    // start animating
+  // start animating
 	animate();
 	function animate(time) {
 	    requestAnimationFrame(animate);
 	    // render the container
 		renderer.render(stage);
 		TWEEN.update(time);
-    }	
+    }
 }

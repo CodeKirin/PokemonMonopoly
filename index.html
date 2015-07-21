@@ -2,19 +2,70 @@
 <html>
 <head>
 	<title>Pokemon Monopoly</title>
-	<link href="main.css" rel="stylesheet" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Bootstrap -->
+	<link href="lib/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/main.css" rel="stylesheet" />
+
 	<script type="text/javascript" src="bower_components/tweenjs/build/tween.min.js"></script>
+	<script type="text/javascript" src="bower_components/knockoutjs/dist/knockout.js"></script>
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+
+
 	<script type="text/javascript" src="pixi.min.js"></script>
 	<script type="text/javascript" src="diceRoller/d6.js"></script>
 	<script type="text/javascript" src="js/tile.js"></script>
 	<script type="text/javascript" src="js/player.js"></script>
 	<script type="text/javascript" src="js/board.js"></script>
 	<script type="text/javascript" src="js/game.js"></script>
+	<script type="text/javascript" src="js/gameClient.js"></script>
+
+	<script src="lib/js/bootstrap.min.js"></script>
+
 </head>
 <body>
+
+		<div class="main-container">
+			<div id="game-container">
+
+			</div>
+			<div class="chat-container">
+				<ul class="player-list" data-bind="foreach: players">
+					<li>
+						<span data-bind="text: $data"></span>
+					</li>
+				</ul>
+				<div class="chats">
+					<ul data-bind="foreach: chats">
+						<li>
+							<span class="chat-name"  data-bind="text: name + ': '"></span>
+
+							<div class="chat-message">
+								<span class="triangle">
+								</span>
+								<span class="message" data-bind="text: message"></span>
+							</div>
+
+						</li>
+					</ul>
+				</div>
+				<textarea type="text" name="" class="my-chat"></textarea>
+
+			</div>
+
+		</div>
 	<input type="hidden" value="" id="diceResult">
+
+
+
+
 	<script type="text/javascript">
-	
+
+
+
+gameClient();
+
 	PIXI.loader
 	    .add(
 		[
@@ -61,6 +112,6 @@
 			"images/zapdos.png"
 		])
 	    .load(game);
-	</script>	
+	</script>
 </body>
 </html>

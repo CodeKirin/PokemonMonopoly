@@ -2,17 +2,39 @@ function game()
 {
 
 
+	// Displays info to player based on the tile landed
+	function displayTileInfo(type) {
+	  if (type == "pokemon") {
+
+	  } else if (type == "ball") {
+
+	  } else if (type == "trainer") {
+
+	  } else if (type == "oak") {
+
+	  } else if (type == "organization") {
+
+	  } else if (type == "utility") {
+
+	  } else if (type == "jail") {
+
+	  } else if (type == "start") {
+
+	  }
+	}
+
     /****************************************** Display ***********************************************/
     // Width and height of window for the client
     var windowWidth = window.innerWidth;
     var windowHeight = 1080;//window.innerHeight;
-      // Display width and height
+    // Display width and height
     console.log(windowWidth);
     console.log(windowHeight);
     // Renderer
     var renderer = PIXI.autoDetectRenderer(windowWidth, windowHeight);
-    var container = document.getElementById('game-container');
-    container.appendChild(renderer.view);
+
+
+    document.getElementById('game-container').appendChild(renderer.view);
     // Containers
     var stage = new PIXI.Container();
     var gameBoard = new Board(stage, windowWidth, windowHeight);
@@ -38,7 +60,7 @@ function game()
 	player.addToStage(stage);
 	player.moveTo(gameBoard.getAllBoardTiles()[0]);
 
-  // start animating
+    // start animating
 	animate();
 	function animate(time) {
 	    requestAnimationFrame(animate);

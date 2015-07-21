@@ -28,7 +28,6 @@ function PlayerFromMovie(movie) {
 function PlayerFromTexture(texture) {
     this.sprite = texture //new PIXI.Sprite(texture);
     Player.call(this, this.sprite)
-
 }
 
 // subclass extends superclass

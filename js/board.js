@@ -36,7 +36,7 @@ function Board(stage, windowWidth, windowHeight) {
   var tile7AshLeft = PIXI.Texture.fromImage("images/ash(left).png");
   var tile8Tangela = PIXI.Texture.fromImage("images/tangela.png");
   var tile9Vileplume = PIXI.Texture.fromImage("images/vileplume.png");
-  var leftTiles = [corner2Jail, tile1Voltorb, tile2Zapdos, tile3Electabuzz, tile4Raichu,
+  var leftTiles = [corner2Jail, tile1Voltorb, tile2Zapdos, tile3Electabuzz, tile4Raichu, 
   tile5Greatball, tile6Victreebel, tile7AshLeft, tile8Tangela, tile9Vileplume];
 
   // Top tiles
@@ -49,7 +49,7 @@ function Board(stage, windowWidth, windowHeight) {
   var tile7Muk = PIXI.Texture.fromImage("images/muk.png");
   var tile8Articuno = PIXI.Texture.fromImage("images/articuno.png");
   var tile9Weezing = PIXI.Texture.fromImage("images/weezing.png");
-  var topTiles = [tile1Kadabra, tile2OakTop, tile3MrMime, tile4Venomoth, tile5Ultraball,
+  var topTiles = [tile1Kadabra, tile2OakTop, tile3MrMime, tile4Venomoth, tile5Ultraball, 
   tile6Koffing, tile7Muk, tile8Articuno, tile9Weezing, corner4GoJail];
 
   // Right tiles
@@ -62,16 +62,47 @@ function Board(stage, windowWidth, windowHeight) {
   var tile7Nidoqueen = PIXI.Texture.fromImage("images/nidoqueen.png");
   var tile8TeamRocket = PIXI.Texture.fromImage("images/teamrocket.png");
   var tile9Nidoking = PIXI.Texture.fromImage("images/nidoking.png");
-  var rightTiles = [tile1Growlithe, tile2Ponyta, tile3AshRight, tile4Rapidash, tile5Masterball,
+  var rightTiles = [tile1Growlithe, tile2Ponyta, tile3AshRight, tile4Rapidash, tile5Masterball, 
   tile6OakRight, tile7Nidoqueen, tile8TeamRocket, tile9Nidoking];
 
                         /* Sides */
   var x = windowWidth - 370;
   var y = windowHeight - 227;
-
+  // Tile properties
+  var type = "";
+  var price = 0;
+  var counter = 0;
   // Bottom
   for (var i = 0; i < 10; i++) {
-    var tile = new Tile(bottomTiles[i]);
+	if (i == 0) {
+		type = "start";
+		price = 0;
+	} else if (i == 2) {
+		type = "trainer";
+		price = 0;
+	} else if (i == 4) {
+		type = "organization";
+		price = 200;
+	} else if (i == 5) {
+		type = "ball";
+		price = 200;
+	} else if (i == 7) {
+	    type = "oak";
+		price = 0;
+	} else {
+		type = "pokemon";
+		counter++;
+		
+		if (counter == 5) {
+			price = 120;
+		} else if (counter <= 4 && counter > 2) {
+			price = 100;
+		} else { 
+			price = 60;
+		}
+	}			
+	
+	var tile = new Tile(bottomTiles[i], type, price);
     tile.setPosition(x, y);
     tile.addToContainer(this.board);
 
@@ -80,9 +111,37 @@ function Board(stage, windowWidth, windowHeight) {
   }
 
   x -= 55;
+  counter = 0;
   // Left
   for ( var i = 0; i < 10; i++ ) {
-    var tile = new Tile(leftTiles[i]);
+	if (i == 0) {
+		type = "jail";
+		price = 0;
+	} else if (i == 2) {
+		type = "utility";
+		price = 150;
+	} else if (i == 5) {
+		type = "ball";
+		price = 200;
+	} else if (i == 7) {
+	    type = "trainer";
+		price = 0;
+	} else {
+		type = "pokemon";
+		counter++;		
+		
+		if (counter == 6) {
+			price = 200;
+		} else if (counter <= 5 && counter > 3) {
+			price = 180;
+		} else if (counter == 3) {
+			price = 160;
+		} else { 
+			price = 140;
+		}
+	}
+	
+    var tile = new Tile(leftTiles[i], type, price);
     tile.setPosition(x, y);
     tile.addToContainer(this.board);
 
@@ -95,11 +154,39 @@ function Board(stage, windowWidth, windowHeight) {
   corner3Tile.setPosition(x, y);
   corner3Tile.addToContainer(this.board);
   this.allBoardTiles.push(corner3Tile);
-
+  
   // Top
   x += 134;
+  counter = 0;
   for (var i = 0; i < 10; i++) {
-    var tile = new Tile(topTiles[i]);
+    if (i == 1) {
+		type = "oak";
+		price = 0;
+	} else if (i == 4) {
+		type = "ball";
+		price = 200;
+	} else if (i == 7) {
+	    type = "utility";
+		price = 150;
+	} else if (i == 9) {
+		type = "goJail";
+		price = 0;
+	} else {
+		type = "pokemon";
+		counter++;
+				
+		if (counter == 6) {
+			price = 280;
+		} else if (counter <= 5 && counter > 3) {
+			price = 260;
+		} else if (counter == 3) {
+			price = 240;
+		} else { 
+			price = 220;
+		}
+	}	
+	
+    var tile = new Tile(topTiles[i], type, price);
     tile.setPosition(x, y);
     tile.addToContainer(this.board);
 
@@ -110,9 +197,36 @@ function Board(stage, windowWidth, windowHeight) {
   // Right
   x -= 81;
   y = 134;
+  counter = 0;
   for ( var i = 0; i < 9; i++ ) {
-    var tile = new Tile(rightTiles[i]);
-
+    if (i == 2) {
+		type = "trainer";
+		price = 0;
+	} else if (i == 4) {
+		type = "ball";
+		price = 200;
+	} else if (i == 5) {
+	    type = "oak";
+		price = 0;
+	} else if (i == 7) {
+		type = "organization";
+		price = 100;
+	} else {
+		type = "pokemon";
+		counter++;
+				
+		if (counter == 5) {
+			price = 400;
+		} else if (counter == 4) {
+			price = 350;
+		} else if (counter == 3) {
+			price = 320
+		} else { 
+			price = 300;
+		}
+	}
+	
+    var tile = new Tile(rightTiles[i], type, price);
     tile.setPosition(x, y);
     tile.addToContainer(this.board);
 

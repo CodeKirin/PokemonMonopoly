@@ -15,7 +15,7 @@ function gameClient() {
     });
 
     // connect to server
-    var socket = io('localhost:3000');
+    window.socket = io('localhost:3000');
 
 
     // Server sends connected message to me

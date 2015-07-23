@@ -63,14 +63,16 @@ function game()
 
   // DICE
 	// TODO: replace with server rolled number
-var dice = new Dice();
-$("#roll-button").click(function() {
+	var dice = new Dice();
+	$("#roll-button").click(function() {
 
-	dice.rollDice(stage, 4);
+		socket.emit('roll_dice');
 
 
-})
-
+	})
+  socket.on('dice_rolled', function(data) {
+		dice.rollDice(stage, data.dice);
+	})
 
 
   // start animating

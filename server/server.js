@@ -12,8 +12,9 @@ console.log(socket.id);
   io.emit('user_join', socket.id);
   players[socket.id] = null;
 
-
+  socket.emit('connected');
   socket.emit('init', players);
+
 
   socket.on('send_message', function(msg){
     io.sockets.emit('new_message', {

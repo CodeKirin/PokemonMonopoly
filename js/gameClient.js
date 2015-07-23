@@ -5,9 +5,10 @@ function gameClient() {
     var scope = this;
     scope.players = ko.observable({});
     scope.chats = ko.observableArray();
-    scope.isOpen = ko.observable(false);
+    scope.nameModalOpen = ko.observable(false);
     scope.playerName = ko.observable();
     scope.nameDialog = ko.observable();
+    scope.loading = ko.observable(true);
 
     scope.playersArray = ko.computed(function() {
         return _.values(scope.players());
@@ -17,18 +18,21 @@ function gameClient() {
     var socket = io('localhost:3000');
 
 
-    //modal finished loading
-    scope.nameDialog.subscribe(function(modal) {
-      scope.isOpen(true);
-    });
+    // Server sends connected message to me
+    socket.on('connected', function () {
+      // Remove loading screen
+      scope.loading(false);
+      // Prompt for name
+      scope.nameModalOpen(true);
+    })
 
     //center it if it is opened
-    scope.isOpen.subscribe(function(newValue) {
+    scope.nameModalOpen.subscribe(function(newValue) {
       scope.nameDialog().center();
     });
 
     scope.playerName.subscribe(function(name) {
-        scope.isOpen(false);
+        scope.nameModalOpen(false);
         socket.emit('name_change', name);
     })
     socket.on('init', function (data) {

@@ -60,12 +60,25 @@ function game()
 	player.addToStage(stage);
 	player.moveTo(gameBoard.getAllBoardTiles()[0]);
 
-    // start animating
+
+  // DICE
+	// TODO: replace with server rolled number
+var dice = new Dice();
+$("#roll-button").click(function() {
+
+	dice.rollDice(stage, 4);
+
+
+})
+
+
+
+  // start animating
 	animate();
 	function animate(time) {
 	    requestAnimationFrame(animate);
 	    // render the container
-		renderer.render(stage);
-		TWEEN.update(time);
+			renderer.render(stage);
+			TWEEN.update(time);
     }
 }

@@ -5,7 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Bootstrap -->
 	<link href="lib/css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<link href="css/main.css" rel="stylesheet" />
 
 	<script type="text/javascript" src="bower_components/tweenjs/build/tween.min.js"></script>
 	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -15,14 +14,13 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link href="http://cdn.kendostatic.com/2014.2.716/styles/kendo.common.min.css" rel="stylesheet" />
 	<link href="http://cdn.kendostatic.com/2014.2.716/styles/kendo.default.min.css" rel="stylesheet" />
+	<link href="css/main.css" rel="stylesheet" />
+
+
 	<script src="http://cdn.kendostatic.com/2014.2.716/js/jquery.min.js"></script>
 	<script src="http://cdn.kendostatic.com/2014.2.716/js/kendo.ui.core.min.js"></script>
-
 	<script type="text/javascript" src="bower_components/knockoutjs/dist/knockout.js"></script>
-
 	<script type="text/javascript" src="bower_components/knockout-kendo/build/knockout-kendo.min.js"></script>
-
-
 	<script type="text/javascript" src="node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script>
 
 
@@ -31,6 +29,8 @@
 	<script type="text/javascript" src="js/tile.js"></script>
 	<script type="text/javascript" src="js/player.js"></script>
 	<script type="text/javascript" src="js/board.js"></script>
+	<script type="text/javascript" src="js/dice.js"></script>
+
 	<script type="text/javascript" src="js/game.js"></script>
 	<script type="text/javascript" src="js/gameClient.js"></script>
 
@@ -38,41 +38,45 @@
 
 </head>
 <body>
-	<div data-bind="kendoWindow: { isOpen: isOpen, widget: nameDialog, visible: false , modal: true , actions: []}">
+	<div data-bind="kendoWindow: { isOpen: nameModalOpen, widget: nameDialog, visible: false , modal: true , actions: []}">
 		<input type="text" data-bind="value: playerName"  placeholder="Your Name">
 	</div>
-		<div class="main-container">
-			<div id="game-container">
+	<!-- Loading overlay-->
+	<div class="loading" style="display: none" data-bind="visible: loading">
+		<div class="loading-icon">
+			<i class="fa fa-spinner fa-spin" ></i>
+		</div>
+	</div>
 
-			</div>
-			<div class="chat-container">
-				<ul class="player-list" data-bind="foreach: playersArray">
-					<li>
-						<span data-bind="text: $data"></span>
+	<button type="button" id="roll-button">Roll</button>
+	<div class="main-container">
+		<div id="game-container">
+			<!-- PIXI js canvas-->
+		</div>
+		<div class="chat-container">
+			<ul class="player-list" data-bind="foreach: playersArray">
+				<li>
+					<span class="label label-info" data-bind="text: $data">Info</span>
+				</li>
+			</ul>
+			<div id="chats">
+				<ul data-bind="foreach: chats">
+					<li data-bind="css: {'own-chat': isSelf}">
+						<span class="chat-name"  data-bind="text: name + ': '"></span>
+
+						<div class="chat-message">
+							<div class="triangle">
+
+							</div>
+							<span class="message" data-bind="text: message"></span>
+						</div>
+
 					</li>
 				</ul>
-				<div id="chats">
-					<ul data-bind="foreach: chats">
-						<li data-bind="css: {'own-chat': isSelf}">
-							<span class="chat-name"  data-bind="text: name + ': '"></span>
-
-							<div class="chat-message">
-								<div class="triangle">
-
-								</div>
-								<span class="message" data-bind="text: message"></span>
-							</div>
-
-						</li>
-					</ul>
-				</div>
-				<textarea type="text" name="" id="chat" class="my-chat" placeholder="Enter chat message ..."></textarea>
-
 			</div>
-
+			<textarea type="text" name="" id="chat" class="my-chat" placeholder="Enter chat message ..."></textarea>
 		</div>
-	<input type="hidden" value="" id="diceResult">
-
+	</div>
 
 
 
@@ -80,7 +84,7 @@
 
 
 
-gameClient();
+ gameClient();
 
 	PIXI.loader
 	    .add(
@@ -125,7 +129,26 @@ gameClient();
 			"images/vileplume.png",
 			"images/voltorb.png",
 			"images/weezing.png",
-			"images/zapdos.png"
+			"images/zapdos.png",
+			"diceRoller/blank.gif",
+			"diceRoller/dices-1.gif",
+			"diceRoller/dices-2.gif",
+			"diceRoller/dices-3.gif",
+			"diceRoller/dices-4.gif",
+			"diceRoller/dices-5.gif",
+			"diceRoller/dices-6.gif",
+			"diceRoller/dicet-1.gif",
+			"diceRoller/dicet-2.gif",
+			"diceRoller/dicet-3.gif",
+			"diceRoller/dicet-4.gif",
+			"diceRoller/dicet-5.gif",
+			"diceRoller/dicet-6.gif",
+			"diceRoller/die-1.gif",
+			"diceRoller/die-2.gif",
+			"diceRoller/die-3.gif",
+			"diceRoller/die-4.gif",
+			"diceRoller/die-5.gif",
+			"diceRoller/die-6.gif",
 		])
 	    .load(game);
 	</script>

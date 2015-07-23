@@ -1,13 +1,13 @@
 # Pokemon Monopoly
 Pokemon monopoly + rich components project
 
-###To Build:
+#####To Build:
+* npm install
+* bower install
 
-npm install
-bower install
 
 
-###To Run:
+#####To Run:
 
   Server:
     node server/server.js

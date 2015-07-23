@@ -8,19 +8,37 @@ var _ = require('lodash');
 var players = {};
 
 io.on('connection', function(socket){
+console.log(socket.id);
+  io.emit('user_join', socket.id);
+  players[socket.id] = null;
 
-  io.emit('user_join', socket.clientId);
-  players[socket.clientId] = {};
 
+  socket.emit('init', players);
 
-  socket.on('chat message', function(msg){
+  socket.on('send_message', function(msg){
+    io.sockets.emit('new_message', {
+      id: socket.id,
+      message: msg
+    })
   });
 
+
+  socket.on('name_change', function(name){
+    console.log('name change ' +  name);
+    players[socket.id] = name;
+
+    io.sockets.emit('name_change', {
+      id: socket.id,
+      name: name
+    })
+  });
 
   socket.on('disconnect', function(){
-    players[socket.clientId] = null;
+    console.log('disconnect');
+    delete players[socket.id];
     io.emit('user_leave', socket.clientId);
   });
+
 
 
 

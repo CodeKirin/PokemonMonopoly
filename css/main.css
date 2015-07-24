@@ -53,9 +53,27 @@ body, html {
 	overflow: scroll;
 }
 
+
 .player-list > li  {
   display: inline-block;
 }
+
+.player-label {
+	font-size: 22px;
+	color: #3c763d;
+	background-color: #dff0d8;
+	border: 1px solid #d6e9c6;
+	border-radius: 5px;
+	padding: 2px 5px;
+	box-sizing: border-box;
+}
+.turn {
+	background-color: red;
+}
+.ready {
+	border-color: red;
+}
+
 #chats{
 	height: calc(100% - 200px);
 	overflow: scroll;

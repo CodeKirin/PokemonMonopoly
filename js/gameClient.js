@@ -10,13 +10,20 @@ function gameClient() {
     scope.nameDialog = ko.observable();
     scope.loading = ko.observable(true);
 
-    scope.playersArray = ko.computed(function() {
-        return _.values(scope.players());
+    scope.playersArray = ko.observableArray();
+
+    scope.players.subscribe(function(players) {
+      //TODO: better way to do this?
+      scope.playersArray.removeAll();
+      for (var key in players) {
+          scope.playersArray.push(players[key]);
+      }
     });
+
+
 
     // connect to server
     window.socket = io('localhost:3000');
-
 
     // Server sends connected message to me
     socket.on('connected', function () {
@@ -51,12 +58,15 @@ function gameClient() {
     })
     socket.on('name_change', function (data) {
       var p = scope.players();
-      p[data.id] = data.name;
+      if (!p[data.id]) p[data.id] = {};
+      p[data.id].name = data.name;
       scope.players(p);
     })
     socket.on('user_join', function(clientId) {
       var p = scope.players() ;
-      p[clientId] = "new";
+      p[clientId] = {
+        ready: false
+      };
       scope.players(p);
     })
     socket.on('user_leave', function(clientId) {
@@ -64,6 +74,13 @@ function gameClient() {
       p[clientId] = null;
       scope.players(p);
     })
+    socket.on('player_ready', function(clientId) {
+      var p = scope.players();
+      p[clientId].ready = true;
+      scope.players(p);
+    })
+
+
     $(document).keypress(function(e) {
       // Press enter to send a message
       if(e.which == 13) {

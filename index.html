@@ -19,7 +19,7 @@
 
 	<script src="http://cdn.kendostatic.com/2014.2.716/js/jquery.min.js"></script>
 	<script src="http://cdn.kendostatic.com/2014.2.716/js/kendo.ui.core.min.js"></script>
-	<script type="text/javascript" src="bower_components/knockoutjs/dist/knockout.js"></script>
+	<script type="text/javascript" src="bower_components/knockoutjs/dist/knockout.debug.js"></script>
 	<script type="text/javascript" src="bower_components/knockout-kendo/build/knockout-kendo.min.js"></script>
 	<script type="text/javascript" src="node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script>
 
@@ -49,15 +49,19 @@
 	</div>
 
 	<button type="button" id="roll-button">Roll</button>
+	<button type="button" id="ready-button">Ready</button>
+
 	<div class="main-container">
 		<div id="game-container">
 			<!-- PIXI js canvas-->
 		</div>
 		<div class="chat-container">
 			<ul class="player-list" data-bind="foreach: playersArray">
-				<li>
-					<span class="label label-info" data-bind="text: $data">Info</span>
+				<!-- ko if: $data -->
+				<li class="player-label" data-bind="css: {'ready': $data.ready}">
+					<span data-bind="text: $data.name"></span>
 				</li>
+				<!-- /ko -->
 			</ul>
 			<div id="chats">
 				<ul data-bind="foreach: chats">
@@ -77,13 +81,7 @@
 			<textarea type="text" name="" id="chat" class="my-chat" placeholder="Enter chat message ..."></textarea>
 		</div>
 	</div>
-
-
-
 	<script type="text/javascript">
-
-
-
  gameClient();
 
 	PIXI.loader

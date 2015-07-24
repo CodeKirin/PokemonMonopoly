@@ -23,8 +23,10 @@ console.log(socket.id);
   });
   socket.on('name_change', function(name){
     console.log('name change ' +  name);
-    players[socket.id] = name;
-
+    players[socket.id] = {
+      name: name,
+      ready: false
+    }
     io.sockets.emit('name_change', {
       id: socket.id,
       name: name
@@ -44,6 +46,13 @@ console.log(socket.id);
       })
   })
 
+
+  socket.on('player_ready', function() {
+    console.log(players[socket.id].name + ' ready');
+    players[socket.id].ready = true;
+    // if all ready, then game start
+    io.sockets.emit('player_ready', socket.id)
+  })
 
 
 });

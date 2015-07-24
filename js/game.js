@@ -65,10 +65,11 @@ function game()
 	// TODO: replace with server rolled number
 	var dice = new Dice();
 	$("#roll-button").click(function() {
-
 		socket.emit('roll_dice');
+	})
 
-
+	$("#ready-button").click(function() {
+		socket.emit('player_ready');
 	})
   socket.on('dice_rolled', function(data) {
 		dice.rollDice(stage, data.dice);

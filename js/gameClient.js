@@ -43,12 +43,19 @@ function gameClient() {
         socket.emit('name_change', name);
     })
     socket.on('init', function (data) {
-      scope.players(data);
+
+      var p = scope.players();
+
+      for (var k in data) {
+            if (p[k] == null) p[k] = data[k];
+      }
+
+      scope.players(p);
     })
     socket.on('new_message', function(data) {
       var p = scope.players() ;
       scope.chats.push({
-        name: p[data.id],
+        name: p[data.id].name,
         message: data.message,
         isSelf: socket.id == data.id
       })
@@ -63,11 +70,31 @@ function gameClient() {
       scope.players(p);
     })
     socket.on('user_join', function(clientId) {
+      // -------------- MOVE TO SOMEWHERE ELSE LATER ----------
+      // create an array of textures from an image path
+      var frames = [];
+
+    for (var i = 0; i < 4; i++) {
+      // magically works since the spritesheet was loaded with the pixi loader
+      frames.push(PIXI.Texture.fromFrame(i));
+    }
+    // create a MovieClip (brings back memories from the days of Flash, right ?)
+    var movie = new PIXI.extras.MovieClip(frames);
+    /*
+     * A MovieClip inherits all the properties of a PIXI sprite
+     * so you can change its position, its anchor, mask it, etc
+     */
+    movie.position.set(300);
+    movie.animationSpeed = 0.1;
+      movie.play();
+      // -------------- MOVE TO SOMEWHERE ELSE LATER ----------
+
+
       var p = scope.players() ;
       p[clientId] = {
-        ready: false
+        ready: false,
+        player: new Player(movie)
       };
-      scope.players(p);
     })
     socket.on('user_leave', function(clientId) {
       var p = scope.players();
@@ -78,6 +105,14 @@ function gameClient() {
       var p = scope.players();
       p[clientId].ready = true;
       scope.players(p);
+
+
+
+      p[clientId].player.addToStage(stage);
+      p[clientId].player.moveTo(gameBoard.getAllBoardTiles()[0]);
+
+
+      //
     })
 
 

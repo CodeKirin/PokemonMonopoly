@@ -1,7 +1,8 @@
-
 // Creating an object for each tile
-function Tile(texture) {
+function Tile(texture, type, price) {
   this.sprite = new PIXI.Sprite(texture);
+  this.type = type;
+  this.price = price;
 };
 
 Tile.prototype.addToContainer = function(container) {
@@ -19,5 +20,12 @@ Tile.prototype.getPositionSize = function () {
     y: this.sprite.position.y,
     width: this.sprite.width,
     height: this.sprite.height
+  };
+};
+
+Tile.prototype.getInfo = function() {
+  return {
+    type: this.type,
+	price: this.price
   };
 };

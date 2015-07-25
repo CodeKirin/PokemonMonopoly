@@ -20,7 +20,6 @@ Player.prototype.addToStage = function (stage) {
   stage.addChild(this.display);
 }
 
-
 // Rectangle - subclass
 function PlayerFromMovie(movie) {
   Player.call(this, movie); // call super constructor.
@@ -29,7 +28,6 @@ function PlayerFromMovie(movie) {
 function PlayerFromTexture(texture) {
     this.sprite = texture //new PIXI.Sprite(texture);
     Player.call(this, this.sprite)
-
 }
 
 // subclass extends superclass

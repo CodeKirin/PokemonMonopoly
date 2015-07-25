@@ -1,0 +1,125 @@
+body, html {
+	margin: 0;
+	padding: 0;
+  height: 100%;
+}
+.main-container {
+  padding: 5px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: blue;
+}
+.loading {
+	background-color: rgba(0,0,0,0.7);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 9;
+}
+.loading-icon {
+	font-size: 100px;
+	width: 150px;
+	height: 150px;
+	top: calc((100% - 150px)/2);
+	left: calc((100% - 150px)/2);
+	position: absolute;
+}
+
+#game-container {
+  background-color:red;
+  width: calc(100% - 260px);
+  height: 100%;
+  float: left;
+	overflow: scroll;
+}
+
+.chat-container {
+  background-color: green;
+  width: 260px;
+  height: 100%;
+  float: left;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+.player-list {
+  list-style: none;
+  width: 100%;
+  margin: 0px;
+  padding: 5px;
+  box-sizing: border-box;
+	height: 100px;
+	overflow: scroll;
+}
+
+
+.player-list > li  {
+  display: inline-block;
+}
+
+.player-label {
+	font-size: 22px;
+	color: #3c763d;
+	background-color: #dff0d8;
+	border: 1px solid #d6e9c6;
+	border-radius: 5px;
+	padding: 2px 5px;
+	box-sizing: border-box;
+}
+.turn {
+	background-color: red;
+}
+.ready {
+	border-color: red;
+}
+
+#chats{
+	height: calc(100% - 200px);
+	overflow: scroll;
+	border: 1px solid grey;
+	background-color: white;
+}
+#chats > ul {
+	list-style: none;
+	margin: 0px;
+}
+#chats > ul  > li {
+	margin-top: 5px;
+}
+
+textarea.my-chat {
+	height: 80px;
+	backgorund-color: blue;
+	margin-top: 3px;
+	width: 235px;
+	resize: none;
+}
+
+.chat-name {
+	display: table-cell;
+	font-weight: bold;
+	vertical-align: top;
+}
+.chat-message {
+	display: table-cell;
+	width: 175px;
+	word-break: break-word;
+}
+.message {
+	display: inline-block;
+	width: 150px;
+	padding-left: 5px;
+	box-sizing: border-box;
+	border: 1px solid blue;
+}
+.triangle::before {
+	content: "";
+	float: left;
+	  width: 0px;
+	  height: 0px;
+	  display: inline-block;
+	  border-top: 10px solid transparent;
+	  border-bottom: 10px solid transparent;
+	  border-right: 10px solid blue;
+}

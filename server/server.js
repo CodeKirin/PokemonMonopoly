@@ -3,14 +3,16 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var _ = require('lodash');
 
+require('./PlayerServer');
+
 
 
 var players = {};
 
 io.on('connection', function(socket){
-console.log(socket.id);
+  console.log(socket.id);
   io.emit('user_join', socket.id);
-  players[socket.id] = null;
+  players[socket.id] = new player(socket.id);
 
   socket.emit('connected');
   socket.emit('init', players);
@@ -23,10 +25,8 @@ console.log(socket.id);
   });
   socket.on('name_change', function(name){
     console.log('name change ' +  name);
-    players[socket.id] = {
-      name: name,
-      ready: false
-    }
+    var p = players[socket.id];
+    p.changeName(name);
     io.sockets.emit('name_change', {
       id: socket.id,
       name: name
@@ -44,12 +44,17 @@ console.log(socket.id);
         id: socket.id,
         dice: diceRoll
       })
+      players[socket.id].onDiceRoll(diceRoll);
+
+      io.sockets.emit('move_player', {
+        id: socket.id,
+        tileIndex: players[socket.id].onTile
+      })
   })
 
 
   socket.on('player_ready', function() {
-    console.log(players[socket.id].name + ' ready');
-    players[socket.id].ready = true;
+    players[socket.id].isReady()
     // if all ready, then game start
     io.sockets.emit('player_ready', socket.id)
   })

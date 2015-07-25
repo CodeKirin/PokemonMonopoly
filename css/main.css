@@ -41,6 +41,7 @@ body, html {
   float: left;
 	padding: 5px;
 	box-sizing: border-box;
+
 }
 
 .player-list {
@@ -50,7 +51,8 @@ body, html {
   padding: 5px;
   box-sizing: border-box;
 	height: 100px;
-	overflow: scroll;
+	overflow-y: auto;
+  overflow-x: hidden;
 }
 
 
@@ -76,7 +78,8 @@ body, html {
 
 #chats{
 	height: calc(100% - 200px);
-	overflow: scroll;
+	overflow-y: auto;
+  overflow-x: hidden;
 	border: 1px solid grey;
 	background-color: white;
 }

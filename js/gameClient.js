@@ -116,6 +116,11 @@ function gameClient() {
     })
 
 
+    socket.on('move_player', function (data){
+            var p = scope.players();
+      p[data.id].player.moveTo(gameBoard.getAllBoardTiles()[data.tileIndex]);
+    })
+
     $(document).keypress(function(e) {
       // Press enter to send a message
       if(e.which == 13) {

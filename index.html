@@ -57,7 +57,7 @@
 		</div>
 		<div class="chat-container">
 			<ul class="player-list" data-bind="foreach: playersArray">
-				<!-- ko if: $data -->
+				<!-- ko if: $data && $data.name-->
 				<li class="player-label" data-bind="css: {'ready': $data.ready}">
 					<span data-bind="text: $data.name"></span>
 				</li>

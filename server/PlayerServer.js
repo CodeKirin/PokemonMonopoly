@@ -14,5 +14,5 @@ player.prototype.changeName = function (name) {
 }
 
 player.prototype.isReady = function () {
-  this.ready = true;
+  return this.ready;
 }

@@ -8,12 +8,12 @@ require('./PlayerServer');
 
 
 var players = {};
-
+var currentPlayer = null;
 io.on('connection', function(socket){
   console.log(socket.id);
   io.emit('user_join', socket.id);
   players[socket.id] = new player(socket.id);
-
+  if (!currentPlayer) currentPlayer = players[socket.id];
   socket.emit('connected');
   socket.emit('init', players);
 
@@ -35,6 +35,7 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log('disconnect');
     delete players[socket.id];
+    if (currentPlayer && currentPlayer.id == socket.id) currentPlayer = null;
     io.emit('user_leave', socket.clientId);
   });
 
@@ -54,13 +55,57 @@ io.on('connection', function(socket){
 
 
   socket.on('player_ready', function() {
-    players[socket.id].isReady()
+    players[socket.id].ready = true;
     // if all ready, then game start
     io.sockets.emit('player_ready', socket.id)
+    if (allPlayersReady(players)) {
+      gameStart();
+    }
+
   })
 
+  socket.on('turn_end', function() {
+    if (currentPlayer.id != socket.id) return;
+    //Find the play for the next turn
+    var current = null;
+    var newP = null;
+    for(var p in players) {
+      if (current) {
+        newP = players[p];
+        break;
+      }
+      if (players[p] && players[p].id == socket.id) current = players[p]
+    }
+    for(var p in players) {
+      if (!newP) newP = players[p];
+      break;
+    }
+
+    startTurn(newP);
+  })
 
 });
+
+function gameStart() {
+  io.sockets.emit('game_start');
+  startTurn(currentPlayer);
+}
+
+function allPlayersReady (players) {
+  for (var p in players) {
+    if (!players[p].isReady()) return false;
+  }
+  return true;
+}
+
+
+function startTurn(player)  {
+  io.sockets.emit('turn_start', {
+    id: player.id
+  })
+  currentPlayer = player;
+}
+
 
 http.listen(3000, function(){
   console.log('listening on *:3000');

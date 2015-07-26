@@ -48,8 +48,9 @@
 		</div>
 	</div>
 
-	<button type="button" id="roll-button">Roll</button>
+	<button type="button" id="roll-button" data-bind="visible:canRoll">Roll</button>
 	<button type="button" id="ready-button">Ready</button>
+	<button type="button" id="turn-button" data-bind="visible: isMyTurn">End Turn</button>
 
 	<div class="main-container">
 		<div id="game-container">
@@ -58,8 +59,8 @@
 		<div class="chat-container">
 			<ul class="player-list" data-bind="foreach: playersArray">
 				<!-- ko if: $data && $data.name-->
-				<li class="player-label" data-bind="css: {'ready': $data.ready}">
-					<span data-bind="text: $data.name"></span>
+				<li  data-bind="css: {'ready': $data.ready}">
+					<span class="player-label" data-bind="text: $data.name"></span>
 				</li>
 				<!-- /ko -->
 			</ul>
@@ -67,14 +68,11 @@
 				<ul data-bind="foreach: chats">
 					<li data-bind="css: {'own-chat': isSelf}">
 						<span class="chat-name"  data-bind="text: name + ': '"></span>
-
 						<div class="chat-message">
 							<div class="triangle">
-
 							</div>
 							<span class="message" data-bind="text: message"></span>
 						</div>
-
 					</li>
 				</ul>
 			</div>

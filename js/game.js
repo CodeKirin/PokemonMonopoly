@@ -39,7 +39,8 @@ function game()
     window.stage = new PIXI.Container();
     window.gameBoard = new Board(stage, windowWidth, windowHeight);
 
-
+		stage.scale.x = 0.99;
+		stage.scale.y = 0.99;
 
 
 

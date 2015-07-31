@@ -27,14 +27,14 @@ body, html {
 
 #game-container {
   background-color:red;
-  width: calc(100% - 260px);
+  width: calc(100% - 450px);
   height: 100%;
   float: left;
 	overflow: scroll;
 }
 
 .chat-container {
-  width: 260px;
+  width: 450px;
   height: 100%;
   float: left;
 	padding: 5px;
@@ -48,7 +48,7 @@ body, html {
   margin: 0px;
   padding: 5px;
   box-sizing: border-box;
-	height: 100px;
+	height: 300px;
 	overflow-y: auto;
   overflow-x: hidden;
 }
@@ -57,15 +57,26 @@ body, html {
 .player-list > li  {
   padding: 5px 2px;
 }
-
-.player-label {
-	font-size: 22px;
-	color: #F6FbFe;
-	background-color: #379cee;
-	border-radius: 5px;
-	padding: 2px 5px;
-	box-sizing: border-box;
+#player-stats {
+	width: 100%;
+	border-spacing: 5px;
+	border-collapse: separate;
 }
+#player-stats thead {
+	background-color: #11C8EB;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 1.4em;
+}
+#player-stats td {
+	padding: 5px;
+}
+
+#player-stats  tbody td{
+	color: #FF8106;
+	font-size: 1.1em;
+}
+
 .turn {
 	background-color: red;
 }
@@ -74,7 +85,7 @@ body, html {
 }
 
 #chats{
-	height: calc(100% - 200px);
+	height: calc(100% - 400px);
 	overflow-y: auto;
   overflow-x: hidden;
 	border: 1px solid grey;

@@ -39,7 +39,7 @@
 </head>
 <body>
 	<div data-bind="kendoWindow: { isOpen: nameModalOpen, widget: nameDialog, visible: false , modal: true , actions: []}">
-		<input type="text" data-bind="value: playerName"  placeholder="Your Name">
+		<input type="text" data-bind="value: playerName"  maxlength="30" placeholder="Your Name">
 	</div>
 	<!-- Loading overlay-->
 	<div class="loading" style="display: none" data-bind="visible: loading">
@@ -57,13 +57,33 @@
 			<!-- PIXI js canvas-->
 		</div>
 		<div class="chat-container">
-			<ul class="player-list" data-bind="foreach: playersArray">
-				<!-- ko if: $data && $data.name-->
-				<li  data-bind="css: {'ready': $data.ready}">
-					<span class="player-label" data-bind="text: $data.name"></span>
-				</li>
-				<!-- /ko -->
-			</ul>
+
+			<table id="player-stats">
+				<thead>
+					<tr>
+						<td> Name </td>
+						<td> Balance </td>
+						<td> Property </td>
+					</tr>
+				</thead>
+				<tbody data-bind="foreach: playersArray">
+					<!-- ko if: $data.name -->
+					<tr data-bind="css: {'ready': $data.ready}">
+						<td>
+							<span class="player-label" data-bind="text:$data.name"></span>
+						</td>
+						<td>
+							<span class="player-label" data-bind="text: $data.balance"></span>
+						</td>
+						<td>
+								0
+						</td>
+					</tr>
+					<!-- /ko -->
+				</tbody>
+			</table>
+
+
 			<div id="chats">
 				<ul data-bind="foreach: chats">
 					<li data-bind="css: {'own-chat': isSelf}">

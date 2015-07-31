@@ -1,3 +1,22 @@
+// Specific player pieces;
+function Pikachu() {
+  // Pikachu frames
+  var frames = [];
+  for (var i = 0; i < 4; i++) {
+    frames.push(PIXI.Texture.fromFrame(i));
+  }
+  var movie = new PIXI.extras.MovieClip(frames);
+  movie.position.set(300);
+  movie.animationSpeed = 0.1;
+  movie.play();
+
+  Player.call(this, movie);
+}
+
+Pikachu.prototype = Object.create(Player.prototype);
+
+
+// Generic representation of a player
 function Player(display) {
   this.display = display;
 }

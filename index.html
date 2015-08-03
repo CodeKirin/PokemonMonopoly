@@ -19,6 +19,9 @@
 
 	<script src="http://cdn.kendostatic.com/2014.2.716/js/jquery.min.js"></script>
 	<script src="http://cdn.kendostatic.com/2014.2.716/js/kendo.ui.core.min.js"></script>
+
+	<script type="text/javascript" src="lib/js/q.js"></script>
+
 	<script type="text/javascript" src="bower_components/knockoutjs/dist/knockout.debug.js"></script>
 	<script type="text/javascript" src="bower_components/knockout-kendo/build/knockout-kendo.min.js"></script>
 	<script type="text/javascript" src="node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script>
@@ -33,6 +36,7 @@
 
 	<script type="text/javascript" src="js/game.js"></script>
 	<script type="text/javascript" src="js/gameClient.js"></script>
+	<script src="lib/js/peer.min.js"></script>
 
 	<script src="lib/js/bootstrap.min.js"></script>
 
@@ -57,31 +61,12 @@
 			<!-- PIXI js canvas-->
 		</div>
 		<div class="chat-container">
-
-			<table id="player-stats">
-				<thead>
-					<tr>
-						<td> Name </td>
-						<td> Balance </td>
-						<td> Property </td>
-					</tr>
-				</thead>
-				<tbody data-bind="foreach: playersArray">
-					<!-- ko if: $data.name -->
-					<tr data-bind="css: {'ready': $data.ready}">
-						<td>
-							<span class="player-label" data-bind="text:$data.name"></span>
-						</td>
-						<td>
-							<span class="player-label" data-bind="text: $data.balance"></span>
-						</td>
-						<td>
-								0
-						</td>
-					</tr>
-					<!-- /ko -->
-				</tbody>
-			</table>
+			<div class="player-stats" data-bind="foreach: playersArray">
+				<div class="player" data-bind="attr: {id : id}">
+					<span data-bind="text:name"></span>
+					<video class="cam" autoplay=""></video>
+				</div>
+			</div>
 
 
 			<div id="chats">

@@ -14,7 +14,7 @@ io.on('connection', function(socket){
   io.emit('user_join', socket.id);
   players[socket.id] = new player(socket.id);
   if (!currentPlayer) currentPlayer = players[socket.id];
-  socket.emit('connected');
+  socket.emit('connected', socket.id);
   socket.emit('init', players);
 
   socket.on('send_message', function(msg){
@@ -36,7 +36,7 @@ io.on('connection', function(socket){
     console.log('disconnect');
     delete players[socket.id];
     if (currentPlayer && currentPlayer.id == socket.id) currentPlayer = null;
-    io.emit('user_leave', socket.clientId);
+    io.sockets.emit('user_leave', socket.id);
   });
 
   socket.on('roll_dice',function(){
@@ -52,6 +52,12 @@ io.on('connection', function(socket){
         tileIndex: players[socket.id].onTile
       })
   })
+
+  socket.on('media_ready', function(){
+    console.log('media_ready ', socket.id);
+    io.sockets.emit('media_ready', socket.id);
+  });
+
 
 
   socket.on('player_ready', function() {

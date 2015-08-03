@@ -27,7 +27,7 @@ body, html {
 
 #game-container {
   background-color:red;
-  width: calc(100% - 450px);
+  width: calc(100% - 600px);
   height: 100%;
   float: left;
 	overflow: scroll;
@@ -133,4 +133,23 @@ textarea.my-chat {
 	  border-top: 10px solid transparent;
 	  border-bottom: 10px solid transparent;
 	  border-right: 10px solid blue;
+}
+
+.player-stats {
+	width: 580px;
+	height: 300px;
+	background-color: red;
+}
+
+.player {
+	width: 24%;
+	height: 100%;
+	margin-left: 5px;
+	background-color: blue;
+	float: left;
+	text-align: center;
+}
+
+.cam {
+	width: 90%;
 }
